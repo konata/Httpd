@@ -8,6 +8,9 @@ import kotlin.reflect.KClass
 
 /**
  * Created by natsuki@live.cn on 06/09/2017.
+ * TODO:
+ *  1. polish cookie/session/ua and other utilities for Request and Response
+ *  2. remove threadpool, using coroutine to replace listen/copy file operation
  */
 class Client(private val socket: Socket, private val match: (Request) -> (Request, Response) -> Any) : Runnable {
     override fun run() {
