@@ -13,7 +13,7 @@ import kotlin.reflect.KClass
  *  2. remove threadpool, using coroutine to replace listen/copy file operation
  */
 class Client(private val socket: Socket, private val match: (Request) -> (Request, Response) -> Any) : Runnable {
-    override fun run() {
+    override fun run() = socket.use {
         val input = BufferedReader(InputStreamReader(socket.inputStream))
         val output = socket.outputStream
         val req = read(input) {
@@ -25,12 +25,10 @@ class Client(private val socket: Socket, private val match: (Request) -> (Reques
                 }
             }
         }
-
         val rsp = Response(stream = output)
         val out = match(req)(req, rsp)
         println(out)
         rsp.flush()
-        socket.close()
     }
 
     private fun read(reader: BufferedReader, eval: () -> Map<String, String>) = reader.readLine().split(' ').let {

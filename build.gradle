@@ -15,13 +15,9 @@ apply plugin: 'kotlin'
 
 repositories {
     jcenter()
-    maven {
-        url "http://dl.bintray.com/marioariasc/funKTionale"
-    }
 }
 
 dependencies {
-    compile "org.funktionale:funktionale-all:1.1"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
     compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.18'
 }
